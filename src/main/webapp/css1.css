@@ -11,3 +11,9 @@ tr, td{
     width: 100px;
     text-align: center;
 }
+
+a {
+   color: blue;
+    border-collapse: collapse;
+    border: 1px solid blue;
+}

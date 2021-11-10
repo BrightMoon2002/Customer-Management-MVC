@@ -34,11 +34,44 @@ public class CustomerServlet extends HttpServlet {
             case "view":
                 showAllCustomer(request, response);
                 break;
+            case "person":
+                showPersonById(request, response);
+                break;
+            case "address":
+                showPersonByAddress(request, response);
             default:
                 break;
         }
     }
 
+    private void showPersonByAddress(HttpServletRequest request, HttpServletResponse response) {
+        String address = request.getParameter("address");
+        List<Customer> customerList1 = this.customerService.findCustomerByAddress(address);
+        request.setAttribute("ds1", customerList1);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/personByAddress.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void showPersonById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+        Customer customer = this.customerService.findByName(name);
+        request.setAttribute("customer", customer);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/person.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @Override
@@ -65,7 +98,9 @@ public class CustomerServlet extends HttpServlet {
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         customerService.remove(customerService.findById(id));
-        showAllCustomer(request, response);
+        List<Customer> customerList = customerService.findAll();
+        request.setAttribute("ds", customerList);
+        response.sendRedirect("customer/index.jsp");
     }
 
     private void editCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -80,13 +115,13 @@ public class CustomerServlet extends HttpServlet {
         } catch (Exception e) {
             e.getMessage();
         }
-        showAllCustomer(request, response);
+        response.sendRedirect("customer/index.jsp");
     }
 
     private void CreateNewCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Customer newCustomer = inputInfoCustomer(request, response);
         customerService.save(newCustomer);
-        showAllCustomer(request, response);
+        response.sendRedirect("customer/index.jsp");
     }
 
     private Customer inputInfoCustomer(HttpServletRequest request, HttpServletResponse response) {
@@ -104,17 +139,20 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void showDeleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Customer> customerList = customerService.findAll();
+        List<Customer> customerList = this.customerService.findAll();
+        int id = Integer.parseInt(request.getParameter("id"));
+        this.customerService.remove(customerService.findById(id));
+
         request.setAttribute("ds", customerList);
 
-        RequestDispatcher dispatcherCreat = request.getRequestDispatcher("customer/delete.jsp");
+        RequestDispatcher dispatcherCreat = request.getRequestDispatcher("customer/index.jsp");
         dispatcherCreat.forward(request, response);
     }
 
     private void showEditCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcherCreat = request.getRequestDispatcher("customer/edit.jsp");
         dispatcherCreat.forward(request, response);
-    }
+        }
 
     private void showCreateCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcherCreat = request.getRequestDispatcher("customer/create.jsp");

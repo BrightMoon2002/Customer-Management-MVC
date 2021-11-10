@@ -5,7 +5,7 @@ import model.Customer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerServiceImpl implements ICustomerService{
+public class CustomerServiceImpl implements ICustomerService {
     private static List<Customer> customerList;
 
     static {
@@ -15,9 +15,10 @@ public class CustomerServiceImpl implements ICustomerService{
         customerList.add(new Customer(3, "DiezC09", "DiezAnC@gmail.com", "Bai rac"));
         customerList.add(new Customer(4, "Meo", "Meo502@gmail.com", "An Giang"));
     }
+
     @Override
     public List<Customer> findAll() {
-        return customerList ;
+        return customerList;
     }
 
     @Override
@@ -57,5 +58,29 @@ public class CustomerServiceImpl implements ICustomerService{
             }
         }
         return index;
+    }
+
+    @Override
+    public Customer findByName(String name) {
+        Customer customer;
+        for (int i = 0; i < customerList.size(); i++) {
+            if (customerList.get(i).getName().equals(name)) {
+                customer = customerList.get(i);
+                return  customer;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Customer> findCustomerByAddress(String address) {
+        List<Customer> customerList1 = new ArrayList<>();
+        for (int i = 0; i < customerList.size(); i++) {
+            if (customerList.get(i).getAddress().equals(address)) {
+                customerList1.add(customerList.get(i));
+            }
+
+        }
+        return customerList1;
     }
 }

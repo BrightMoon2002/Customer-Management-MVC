@@ -16,22 +16,22 @@
 <h1>Danh sách khách hàng</h1>
 <form action="">
     <table>
-        <c:forEach items="${ds}" var="customerList">
+        <c:forEach items="${ds1}" var="customerList1">
             <tr>
-                <td>${customerList.id}</td>
+                <td>${customerList1.id}</td>
                 <td>
-                    <a href="customers?action=person&name=${customerList.name}"> ${customerList.name}</a>
+                    <a href="customers?action=person&name=${customerList1.name}"> ${customerList1.name}</a>
 
                 </td>
-                <td>${customerList.email}</td>
+                <td>${customerList1.email}</td>
                 <td>
-                    <a href="customers?action=address&address=${customerList.address}">${customerList.address}</a>
+                    <a href="customers?action=address&address=${customerList1.address}">${customerList1.address}</a>
                 </td>
                 <td>
-                    <a style="border-collapse: collapse; border: 1px solid blue; color: blue " href="/customers?action=delete&id=${customerList.id}">delete</a>
+                    <a style="border-collapse: collapse; border: 1px solid blue; color: blue " href="/customers?action=delete">delete</a>
                 </td>
                 <td>
-                    <a href="/customers?action=edit&id=${customerList.id}" style="border-collapse: collapse; border: 1px solid blue; color: blue ">edit</a>
+                    <a href="/customers?action=edit" style="border-collapse: collapse; border: 1px solid blue; color: blue ">edit</a>
                 </td>
             </tr>
         </c:forEach>

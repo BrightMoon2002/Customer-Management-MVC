@@ -14,7 +14,7 @@
 <h1>Delete Customer</h1>
 <form method="post">
     <input type="text" name="id" placeholder="input Id">
-    <button type="submit">Create</button>
+    <button type="submit">Delete</button>
 </form>
 
 </body>

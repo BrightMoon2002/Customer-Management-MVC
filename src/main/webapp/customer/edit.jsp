@@ -13,7 +13,6 @@
 <body>
 <h1>Edit Customer</h1>
 <form method="post">
-    <input type="text" name="id" placeholder="input Id">
     <input type="text" name="newId" placeholder="input new Id">
     <input type="text" name="name" placeholder="input name">
     <input type="text" name="email" placeholder="input email">
