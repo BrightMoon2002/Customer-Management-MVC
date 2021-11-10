@@ -14,6 +14,9 @@
 </head>
 <body>
 <h1>Danh sách khách hàng</h1>
+<a href="customers?action=create">Create new Customer</a><br>
+<a href="https://checkerviet.org">Home Page</a>
+
 <form action="">
     <table>
         <c:forEach items="${ds}" var="customerList">

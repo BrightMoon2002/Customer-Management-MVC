@@ -25,6 +25,7 @@
             <td>${customer.getAddress()}</td>
         </tr>
     </table>
+    <a href="/customers">Back</a>
 </form>
 
 

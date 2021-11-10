@@ -40,6 +40,7 @@ public class CustomerServlet extends HttpServlet {
             case "address":
                 showPersonByAddress(request, response);
             default:
+                showAllCustomer(request, response);
                 break;
         }
     }
@@ -100,7 +101,7 @@ public class CustomerServlet extends HttpServlet {
         customerService.remove(customerService.findById(id));
         List<Customer> customerList = customerService.findAll();
         request.setAttribute("ds", customerList);
-        response.sendRedirect("customer/index.jsp");
+        response.sendRedirect("/customers");
     }
 
     private void editCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -115,13 +116,14 @@ public class CustomerServlet extends HttpServlet {
         } catch (Exception e) {
             e.getMessage();
         }
-        response.sendRedirect("customer/index.jsp");
+        response.sendRedirect("/customers");
     }
 
     private void CreateNewCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Customer newCustomer = inputInfoCustomer(request, response);
+
         customerService.save(newCustomer);
-        response.sendRedirect("customer/index.jsp");
+        response.sendRedirect("/customers");
     }
 
     private Customer inputInfoCustomer(HttpServletRequest request, HttpServletResponse response) {
@@ -131,6 +133,7 @@ public class CustomerServlet extends HttpServlet {
         String address = request.getParameter("address");
         return new Customer(id, name, email, address);
     }
+
     private void showAllCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Customer> customerList = customerService.findAll();
         request.setAttribute("ds", customerList);
@@ -152,7 +155,7 @@ public class CustomerServlet extends HttpServlet {
     private void showEditCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcherCreat = request.getRequestDispatcher("customer/edit.jsp");
         dispatcherCreat.forward(request, response);
-        }
+    }
 
     private void showCreateCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcherCreat = request.getRequestDispatcher("customer/create.jsp");
